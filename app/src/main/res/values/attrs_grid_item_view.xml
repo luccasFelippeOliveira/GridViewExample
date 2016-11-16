@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="GridItemView">
+        <attr name="cropName" format="string" />
+        <attr name="cropImage" format="reference|string" />
+    </declare-styleable>
+</resources>
