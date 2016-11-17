@@ -2,6 +2,8 @@ package com.example.lfo.gridviewexample;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.io.File;
 
 /**
  * Created by lfo on 16/11/2016.
@@ -46,8 +50,35 @@ public class GradeItemView extends LinearLayout {
         //Set imageView and Textview propreties.
         mTextView.setText(cropName);
 
+        //Must check if has resource name.
         //Get image.
-        
+        Bitmap bmp = loadBMP(cropImage);
+        if (bmp != null) {
+            mImageView.setImageBitmap(bmp);
+        }
+    }
 
+    public GradeItemView(Context context) {
+        this(context, null);
+    }
+
+    public void setCropText(String cropName) {
+        this.mTextView.setText(cropName);
+    }
+    public void setCropImage(String source) {
+        Bitmap bmp = loadBMP(source);
+        if (bmp != null) {
+            mImageView.setImageBitmap(bmp);
+        }
+    }
+
+    private Bitmap loadBMP(String src) {
+        File imgFile = new File(src);
+        if (imgFile.exists()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap cropped = Bitmap.createBitmap(bitmap, 0, 0, 100, 100);
+            return cropped;
+        }
+        return null;
     }
 }
